@@ -91,3 +91,76 @@ flowchart TD
   G4 --> R2
   G4 --> R3
   T1 --> T2 --> T3 --> G2
+
+
+```
+## Detailed Architecture
+
+DeltaDefence embodies a modular and layered architecture that bridges biological evolutionary concepts with cybersecurity engineering.
+
+### Genome Encoding
+
+- **Genome**: A serialized representation of defense parameters and configurations.
+- Encodes:
+  - Firewall rules and policies
+  - Kernel hardening flags and parameters
+  - IDS/IPS behavioral signatures
+  - Logging and alert thresholds
+  - Cryptographic configurations (e.g., cipher suites, key lengths)
+  - Network interface parameters (e.g., MAC/IP spoofing toggles)
+- Designed for efficient mutation and crossover operations.
+
+### Mutation and Crossover Manager
+
+- Implements configurable mutation rates and operators.
+- Supports:
+  - Bit-flip mutations on binary-encoded genes.
+  - Parameter tweaks on numeric genes.
+  - Category shifts on enumerated genes.
+- Crossover combines two genomes to produce offspring genomes, preserving effective traits.
+
+### Phenotype Expression Module
+
+- Translates genome to concrete system configuration.
+- Interfaces directly with:
+  - `iptables` for firewall rules
+  - `sysctl` and kernel modules for hardening
+  - User-space IDS tools (e.g., Suricata) through config generation
+  - Encrypted logging mechanisms
+
+### Defense Deployment Interface
+
+- Ensures atomic deployment with rollback on error.
+- Monitors runtime health and enforces real-time adjustments.
+- Logs all changes with cryptographic proof.
+
+---
+
+## Installation and Environment Preparation
+
+### Hardware Requirements
+
+- Minimum: x86_64 CPU or ARM Cortex-A72 (e.g., Raspberry Pi 4)
+- Recommended: CPU with AVX2 and GPU acceleration for training (NVIDIA CUDA capable)
+- Memory: 4GB RAM minimum, 8GB+ preferred for training cycles
+
+### Software Requirements
+
+- Operating System: Debian-based Linux preferred (Ubuntu, Raspbian)
+- Python 3.12 or higher
+- Docker Engine (for containerized deployment)
+- Dependencies:
+  - PyTorch >= 2.0
+  - Gymnasium
+  - Scapy
+  - cryptography (AES, RSA, HMAC support)
+  - iptables/ip6tables command line tools
+
+---
+
+## Usage
+
+### Running the Defense Agent
+
+```bash
+python3 delta_defense_agent.py --config config.yaml --mode runtime
